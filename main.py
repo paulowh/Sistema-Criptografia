@@ -56,6 +56,7 @@ def descCripto(config):
     print()
     input('press enter...')
 
+
 def calculoPrimo(e):
     while True:
         cont = 0
@@ -69,6 +70,7 @@ def calculoPrimo(e):
         if cont <= 2:
             break
     return e
+
 
 def config():
 
@@ -107,6 +109,7 @@ def config():
     arq.writelines(config)
     arq.close()
 
+
 def criptoParc():
     calc = []
     textCripto = []
@@ -120,6 +123,7 @@ def criptoParc():
         calc.append((i**int(valorE))%int(valorN))
     print('Compartilhe o texto: ', calc)
     input('press enter...')
+
 
 while True:
     config = abrirArquivo()
