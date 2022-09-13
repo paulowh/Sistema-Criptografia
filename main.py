@@ -72,7 +72,7 @@ def calculoPrimo(e):
     return e
 
 
-def config():
+def configg():
 
     valorQ = int(input('digite o valor de Q: '))
     valorP = int(input('digite o valor de P: '))
@@ -83,12 +83,12 @@ def config():
     mmc = valorZ
     while True: #valorE
         
-        if mmc <= 2:
+        if mmc <= e:
             valorE = calculoPrimo(e)
             break
         elif mmc % e != 0:
             e = calculoPrimo(e)
-            print()
+            print(e)
         elif mmc % e == 0:
             mmc = mmc//2
 
@@ -97,6 +97,7 @@ def config():
 
         if 1 == (d*valorE)%valorZ:
             valorD = d
+            print(d)
             break
         d += 1
     
@@ -113,8 +114,8 @@ def config():
 def criptoParc():
     calc = []
     textCripto = []
-    valorE = input('Digite a 1º Chave')
-    valorN = input('Digite a 2º Chave')
+    valorE = input('Digite a 1º Chave: ')
+    valorN = input('Digite a 2º Chave: ')
     text = input('Digite a frase: ')
 
     for i in text:
@@ -126,24 +127,26 @@ def criptoParc():
 
 
 while True:
-    config = abrirArquivo()
+    
     print(f'''
     1-Criptografar Mensagem
     2-Descriptografar Mensagem
     3-Criptografar Mensagem Parceiro
     4-Configurar
     5-Sair''')
-    esc = input('escolha (1-4): ')
+    esc = input('escolha (1-5): ')
 
     if esc == '1':
-        cripto(config)
+        cripto(abrirArquivo())
     elif esc == '2':
-        descCripto(config)
+        descCripto(abrirArquivo())
     elif esc == '3':
         criptoParc()
     elif esc == '4':
-        config()
+        configg()
+        print('olá')
     elif esc == '5':
         break
     else:
         print('escolha uma das opções')
+        
