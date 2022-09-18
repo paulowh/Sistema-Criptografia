@@ -62,7 +62,7 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
           <b>Mark Zuckerberg</b>
         </sub>
       </a>
-    </td>
+    <!-- </td> -->
   </tr>
 </table>
 
