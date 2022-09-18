@@ -37,11 +37,11 @@ def cripto(config):
 def descCripto(config):
     calc = []
     textDescripto = []
-    print('ALERTA !!!')
-    print('Para fechar o sistema digite S')
+    # print('ALERTA !!!')
+    # print('Para fechar o sistema digite S')
 
     while True:
-        dig = input('Digite o cod: ')
+        dig = input('Digite o cod ou (S)air: ')
         if dig in 'Ss':
             break
         else:
