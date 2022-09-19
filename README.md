@@ -24,8 +24,11 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 
 ## 💻 Pré-requisitos
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
-<!-- * Você instalou a versão mais recente de `Python 3.10` -->
-* Arquivo de dependencias para venv `requirements.txt`
+* Ter instalado o `Python 3.10`
+* Ter o ambiente virtual `python -m venv env`
+* Ativar ambiente virtual `.\venv\Scripts\Activate.ps1`
+* Instalar arquivo de dependencia `pip install -r requirements.txt`
+<!-- * Arquivo de dependencias para venv `requirements.txt` -->
 
 
 ## 📫 Contribuindo para <nome_do_projeto>
