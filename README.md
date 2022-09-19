@@ -10,11 +10,11 @@
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
 <!-- - [X] Pré-requisitos -->
 - [x] Descriptografia de textos
-    - [ ] Leitura automatica de textos
-    - [ ] 
+    - [x] Leitura automatica de textos
+    <!-- - [ ]  -->
 - [x] Criptografar de textos
     - [x] Criptografar texto com chaves publicas
-    - [ ] Salvamento em arquivo
+    - [x] Salvamento em arquivo
     - [ ] Compartilhamento (WhatsAPP)
     - [ ] Leitura QR Code
 - [x] Geração de chaves de criptografia

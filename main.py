@@ -1,12 +1,10 @@
-from io import TextIOWrapper
 import progressbar 
 import time 
  
-
 def abrirArquivo():
     # d->0; n->1; z->2; e->3
     try:
-        arq = open('dados.txt')
+        arq = open('config.txt')
         linhas = arq.readlines()
         i = 0
         for linha in linhas:
@@ -17,14 +15,17 @@ def abrirArquivo():
             i+=1
         return linhas
     except:
-        arquivo = open('dados.txt', 'a')
+        arquivo = open('config.txt', 'a')
         #Uma configuração padrão onde o Q = 17 e P = 7
         texto = ['37\n', '119\n', '96\n','13\n'] 
         arquivo.writelines(texto)
         arquivo.close()
         return texto
     
-
+def salvarArquivo(texto):
+    arq = open('mensagem.txt', 'w')
+    arq.writelines(texto)
+    arq.close()
 
 def cripto(config):
     calc = []
@@ -42,39 +43,43 @@ def cripto(config):
 
     # print(textArquivo)
 
-    arq = open('mes.txt', 'w')
-    arq.writelines(textArquivo)
-    arq.close()
+    salvarArquivo(textArquivo)
 
-    print('Compartilhe o texto: ', calc)
+    print('\033[0;32mCompartilhe o texto: ', calc,'\033[0;0m')
     input('press enter...')
 
 
 def descCripto(config):
     widgets = [ 'Decodificando : ', progressbar.AnimatedMarker(), ' [' , progressbar.Timer(format='%s'), ']'] 
     calc = []
-    textoCripto = []
-    # print('ALERTA !!!')
-    # print('Para fechar o sistema digite S')
+    linhas = []
+    while True:
 
-    # while True:
-    #     dig = input('Digite o cod ou (S)air: ')
-    #     if dig in 'Ss':
-    #         break
-    #     else:
-    #         textoCripto.append(int(dig))
-
-    arq = open('mes.txt')
-    linhas = arq.readlines()
-
-    for i, linha in  enumerate(linhas):
-        # print(linha[:-1], '->', i)
-        if '\n' in linha:
-            linhas[i] = int(linha[:-1])
+        escolha = input('Deseja (D)igitar ou (A)brir um arquivo? ')
+        if escolha in 'Dd':
+            while True:
+                dig = input('Digite o cod ou (S)air: ')
+                if dig in 'Ss':
+                    break
+                else:
+                    linhas.append(int(dig))
+            break
+        elif escolha in 'Aa':
+            try:
+                arq = open('mensagem.txt')
+                linhas = arq.readlines()
+                for i, linha in  enumerate(linhas):
+                    # print(linha[:-1], '->', i)
+                    if '\n' in linha:
+                        linhas[i] = int(linha[:-1])
+                    else:
+                        linhas[i] = int(linha)
+                break
+            except:
+                print('Arquivo não encontrado !!!')
         else:
-            linhas[i] = int(linha)
-    
-    # print(linhas)
+            print('\033[1;31m   -AVISO!!! ESCOLHA UMA DAS OPÇÕES\033[0;0m')
+            time.sleep(0.5)
     
     bar = progressbar.ProgressBar(widgets=widgets).start() 
 
@@ -87,7 +92,8 @@ def descCripto(config):
     for i in calc:
         print(chr(i), end='')
     print()
-    input('press enter...')
+    time.sleep(1)
+    # input('press enter...')
 
 
 def calculoPrimo(e):
@@ -140,7 +146,7 @@ def configg():
     print('Valor public (', valorE, ',',valorN,')')
     print('Valor private (', valorD, ',',valorN,')')
     
-    arq = open('dados.txt', 'w')
+    arq = open('config.txt', 'w')
     # d->0; n->1; z->2; e->3
     config = ['{}\n'.format(valorD),'{}\n'.format(valorN),'{}\n'.format(valorZ),'{}\n'.format(valorE)] 
     arq.writelines(config)
@@ -148,7 +154,7 @@ def configg():
 
 
 def criptoParc():
-    calc = []
+    mensagem = []
     textCripto = []
     valorE = input('Digite a 1º Chave: ')
     valorN = input('Digite a 2º Chave: ')
@@ -157,9 +163,11 @@ def criptoParc():
     for i in text:
         textCripto.append(ord(i))
     for i in textCripto:
-        calc.append((i**int(valorE))%int(valorN))
-    print('Compartilhe o texto: ', calc)
-    input('press enter...')
+        mensagem.append((i**int(valorE))%int(valorN))
+    print('	\033[0;31mCompartilhe o texto: ', mensagem,'\033[0;0m')
+    # input('press enter...')
+    salvarArquivo(mensagem)
+    time.sleep(1)
 
 
 while True:
