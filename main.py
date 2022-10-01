@@ -169,6 +169,22 @@ def criptoParc():
     salvarArquivo(mensagem)
     time.sleep(1)
 
+def whats():
+    telefone = input('Digite o numero (DDD)9XXXX-XXXX')
+    mensagem = ''
+
+    arq = open('mensagem.txt')
+    linhas = arq.readlines()
+    for i, linha in  enumerate(linhas):
+        # print(linha[:-1], '->', i)
+        if '\n' in linha:
+            mensagem += linha[:-1] + ';'
+        else:
+             mensagem += linha
+    # print(linhas) 
+    print('https://wa.me/55{}?text={}'.format(telefone, mensagem)   )
+    input()
+    
 
 while True:
     
@@ -176,10 +192,11 @@ while True:
   1-Criptografar Mensagem
   2-Descriptografar Mensagem
   3-Criptografar Mensagem Parceiro
-  4-Configurar
-  5-Sair
+  4-Enviar Mensagem WhatsApp
+  5-Configurar
+  6-Sair
 ====================================''')
-    esc = input('escolha (1-5): ')
+    esc = input('escolha (1-6): ')
 
     if esc == '1':
         cripto(abrirArquivo())
@@ -188,9 +205,10 @@ while True:
     elif esc == '3':
         criptoParc()
     elif esc == '4':
-        configg()
-   
+        whats()
     elif esc == '5':
+        configg()
+    elif esc == '6':
         break
     else:
         print('\033[1;31m   -AVISO!!! ESCOLHA UMA DAS OPÇÕES\033[0;0m')
