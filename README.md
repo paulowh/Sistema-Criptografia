@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white)
 
 ## Projeto
->Uma aplicação com python que transmitirar e reseberar mensagens criptografadas, onde apenas os usuarios com as chaves terão acesso a mensagme
+>Uma aplicação com python que transmitira e recebera mensagens criptografadas, onde apenas os usuários com as chaves terão acesso a mensagem
 
 
 ### Objetivos
