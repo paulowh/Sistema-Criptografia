@@ -1,6 +1,9 @@
 import progressbar 
 import time 
- 
+import qrcode
+from PIL import Image
+import climage
+
 def abrirArquivo():
     # d->0; n->1; z->2; e->3
     try:
@@ -8,7 +11,7 @@ def abrirArquivo():
         linhas = arq.readlines()
         i = 0
         for linha in linhas:
-            if '\n' in linha:
+            if '\n' or ';' in linha:
                 linhas[i] = int(linha[:-1])
             else:
                 linhas[i] = int(linha)
@@ -23,7 +26,7 @@ def abrirArquivo():
         return texto
     
 def salvarArquivo(texto):
-    arq = open('mensagem.txt', 'w')
+    arq = open('texto.txt', 'w')
     arq.writelines(texto)
     arq.close()
 
@@ -48,7 +51,6 @@ def cripto(config):
     print('\033[0;32mCompartilhe o texto: ', calc,'\033[0;0m')
     input('press enter...')
 
-
 def descCripto(config):
     widgets = [ 'Decodificando : ', progressbar.AnimatedMarker(), ' [' , progressbar.Timer(format='%s'), ']'] 
     calc = []
@@ -66,15 +68,24 @@ def descCripto(config):
             break
         elif escolha in 'Aa':
             try:
-                arq = open('mensagem.txt')
+                arq = open('texto.txt')
                 linhas = arq.readlines()
-                for i, linha in  enumerate(linhas):
-                    # print(linha[:-1], '->', i)
-                    if '\n' in linha:
-                        linhas[i] = int(linha[:-1])
-                    else:
-                        linhas[i] = int(linha)
-                break
+                try:    
+                    for i, linha in  enumerate(linhas):
+                        # print(linha[:-1], '->', i)
+                        if '\n' in linha:
+                            linhas[i] = int(linha[:-1])
+                            print (linhas)
+                        else:
+                            linhas[i] = int(linha)
+                    break
+                except:
+                    # print('oi')
+
+                    for linhas in linha:
+                        linhas = linha.split(';')
+                    print(type(linhas))
+                    break
             except:
                 print('Arquivo não encontrado !!!')
         else:
@@ -84,7 +95,7 @@ def descCripto(config):
     bar = progressbar.ProgressBar(widgets=widgets).start() 
 
     for i in linhas:
-        calc.append((i**int(config[0]))%int(config[1]))
+        calc.append((int(i)**int(config[0]))%int(config[1]))
         bar.update() 
     print()
 
@@ -93,8 +104,23 @@ def descCripto(config):
         print(chr(i), end='')
     print()
     time.sleep(1)
-    # input('press enter...')
 
+def verificarNumPrimo(n):
+    count = 0
+    if n == 0:
+        print('O numero digitado é 0')
+    else:
+        for i in range(1, n):
+            if (n % i == 0):
+                # print(n % i, '=>', i)
+                count += 1
+        if (count != 1):
+            print('O numero {} não é PRIMO'.format(n))
+            return False
+        else:
+            # print('O numero {} é PRIMO'.format(n))
+            return True
+    print ('oi')
 
 def calculoPrimo(e):
     while True:
@@ -110,12 +136,18 @@ def calculoPrimo(e):
             break
     return e
 
-
 def configg():
     widgets = [ 'Criando : ', progressbar.AnimatedMarker(), ' [' , progressbar.Timer(format='%s'), ']'] 
     
-    valorQ = int(input('digite o valor de Q: '))
-    valorP = int(input('digite o valor de P: '))
+    while True:
+        valorQ = int(input('digite o valor de Q: '))
+        if verificarNumPrimo(valorQ):
+            break
+    while True:
+        valorP = int(input('digite o valor de P: '))
+        if verificarNumPrimo(valorP):
+            break
+
     valorN = valorP*valorQ
     valorZ = (valorP-1)*(valorQ-1)
     
@@ -152,7 +184,6 @@ def configg():
     arq.writelines(config)
     arq.close()
 
-
 def criptoParc():
     mensagem = []
     textCripto = []
@@ -170,10 +201,10 @@ def criptoParc():
     time.sleep(1)
 
 def whats():
-    telefone = input('Digite o numero (DDD)9XXXX-XXXX')
+    telefone = input('Digite o numero com o DDD: ')
     mensagem = ''
 
-    arq = open('mensagem.txt')
+    arq = open('texto.txt')
     linhas = arq.readlines()
     for i, linha in  enumerate(linhas):
         # print(linha[:-1], '->', i)
@@ -182,9 +213,21 @@ def whats():
         else:
              mensagem += linha
     # print(linhas) 
-    print('https://wa.me/55{}?text={}'.format(telefone, mensagem)   )
-    input()
+    link = 'https://wa.me/55{}?text={}'.format(telefone, mensagem)
+    qr = qrcode.QRCode(version = 1, 
+                   box_size = 30, 
+                   border = 10) 
+    qr.add_data(link) 
+    qr.make(fit = True) 
+    img = qr.make_image()
+    img.save('qrcode.png')
+
+    with Image.open('qrcode.png') as img:
+        img.show()
     
+    #Exibe img no console, mas esta distorcido
+    # output = climage.convert('qrcode.png', True, False, False, True, False, 20)
+    # print(output)
 
 while True:
     
@@ -213,4 +256,3 @@ while True:
     else:
         print('\033[1;31m   -AVISO!!! ESCOLHA UMA DAS OPÇÕES\033[0;0m')
         time.sleep(0.5)
-        
