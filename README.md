@@ -15,8 +15,8 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [x] Criptografar de textos
     - [x] Criptografar texto com chaves publicas
     - [x] Salvamento em arquivo
-    - [ ] Compartilhamento (WhatsAPP)
-    - [ ] Leitura QR Code
+    - [x] Compartilhamento (WhatsAPP)
+    - [x] Leitura QR Code
 - [x] Geração de chaves de criptografia
     - [x] Calculo dos valores das chaves
     - [ ] Sistema aleatorio de escolhas
