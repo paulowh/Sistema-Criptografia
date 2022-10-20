@@ -2,7 +2,19 @@ import progressbar
 import time 
 import qrcode
 from PIL import Image
+
 import climage
+
+class bcolors:
+    HEADER = '\033[95m'
+    INFORMATION = '\033[94m'
+    AVISO = '\033[96m'
+    OKGREEN = '\033[92m'
+    ALERT = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 def abrirArquivo():
     # d->0; n->1; z->2; e->3
@@ -48,7 +60,7 @@ def cripto(config):
 
     salvarArquivo(textArquivo)
 
-    print('\033[0;32mCompartilhe o texto: ', calc,'\033[0;0m')
+    print(bcolors.AVISO + 'Compartilhe o texto: {}'.format(calc) + bcolors.ENDC)
     input('press enter...')
 
 def descCripto(config):
@@ -75,7 +87,7 @@ def descCripto(config):
                         # print(linha[:-1], '->', i)
                         if '\n' in linha:
                             linhas[i] = int(linha[:-1])
-                            print (linhas)
+                            # print (linhas)
                         else:
                             linhas[i] = int(linha)
                     break
@@ -84,26 +96,27 @@ def descCripto(config):
 
                     for linhas in linha:
                         linhas = linha.split(';')
-                    print(type(linhas))
+                    # print(type(linhas))
                     break
             except:
                 print('Arquivo não encontrado !!!')
         else:
-            print('\033[1;31m   -AVISO!!! ESCOLHA UMA DAS OPÇÕES\033[0;0m')
+            print('-AVISO!!! ESCOLHA UMA DAS OPÇÕES')
             time.sleep(0.5)
     
     bar = progressbar.ProgressBar(widgets=widgets).start() 
-
+    print(linhas)
     for i in linhas:
-        calc.append((int(i)**int(config[0]))%int(config[1]))
+        if i:
+            calc.append((int(i)**int(config[0]))%int(config[1]))
         bar.update() 
-    print()
 
     print('A mensagem é: ', end='')
     for i in calc:
         print(chr(i), end='')
     print()
     time.sleep(1)
+   
 
 def verificarNumPrimo(n):
     count = 0
@@ -120,7 +133,7 @@ def verificarNumPrimo(n):
         else:
             # print('O numero {} é PRIMO'.format(n))
             return True
-    print ('oi')
+    # print ('oi')
 
 def calculoPrimo(e):
     while True:
@@ -156,6 +169,7 @@ def configg():
     bar = progressbar.ProgressBar(widgets=widgets).start() 
     while True: #valorE
         
+        print('mmc: ', mmc, '| e: ', e )
         if mmc <= e:
             valorE = calculoPrimo(e)
             break
@@ -166,6 +180,7 @@ def configg():
             mmc = mmc//2
         bar.update() 
     d = 1
+
     while True: #valorD
 
         if 1 == (d*valorE)%valorZ:
@@ -187,6 +202,7 @@ def configg():
 def criptoParc():
     mensagem = []
     textCripto = []
+    textArquivo = []
     valorE = input('Digite a 1º Chave: ')
     valorN = input('Digite a 2º Chave: ')
     text = input('Digite a frase: ')
@@ -194,10 +210,14 @@ def criptoParc():
     for i in text:
         textCripto.append(ord(i))
     for i in textCripto:
-        mensagem.append((i**int(valorE))%int(valorN))
-    print('	\033[0;31mCompartilhe o texto: ', mensagem,'\033[0;0m')
+        mensagem.append(str((i**int(valorE))%int(valorN)))
+
+    for i in mensagem:
+        txt = str(i) + '\n'
+        textArquivo.append(txt)
+    print('Compartilhe o texto: ', mensagem)
     # input('press enter...')
-    salvarArquivo(mensagem)
+    salvarArquivo(textArquivo)
     time.sleep(1)
 
 def whats():
@@ -254,5 +274,5 @@ while True:
     elif esc == '6':
         break
     else:
-        print('\033[1;31m   -AVISO!!! ESCOLHA UMA DAS OPÇÕES\033[0;0m')
+        print('-AVISO!!! ESCOLHA UMA DAS OPÇÕES')
         time.sleep(0.5)
